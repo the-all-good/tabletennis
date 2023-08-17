@@ -23,7 +23,7 @@
           <tr class="bg-gray-200">
           <?php $counter++;?>
         @endif
-          <td class="py-2 px-4 text-center divide-x-2">{{ strtoupper($player['name'])}}</td>
+          <td class="py-2 px-4 text-center divide-x-2">{{ ucwords($player['name'])}}</td>
           <td class="py-2 px-4 text-center divide-x-2">{{ $player['wins']}}</td>
           <td class="py-2 px-4 text-center divide-x-2">{{ $player['points']}}</td>
           <td class="py-2 px-4 text-center divide-x-2">{{ $player['games']}}</td>

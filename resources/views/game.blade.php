@@ -20,7 +20,7 @@
         <input list="players" type="text" id="player1" name="player1" class="w-full px-3 py-2 border rounded-lg focus:ring focus:ring-blue-300 focus:ring-opacity-50" required>
         <datalist id="players">
         @foreach ($players as $player)
-          <option value="<?php echo ucfirst($player['name']);?>"></option>
+          <option value="<?php echo ucwords($player['name']);?>"></option>
         @endforeach
         </datalist>
       </div>
@@ -33,7 +33,7 @@
         <input list="players" type="text" id="player2" name="player2" class="w-full px-3 py-2 border rounded-lg focus:ring focus:ring-blue-300 focus:ring-opacity-50" required>
         <datalist id="players">
         @foreach ($players as $player)
-          <option value="<?php echo ucfirst($player['name']);?>">{{$player['name']}}</option>
+          <option value="<?php echo ucwords($player['name']);?>">{{$player['name']}}</option>
         @endforeach
         </datalist>
       </div>

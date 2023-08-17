@@ -42,6 +42,9 @@ class Game extends Model
         $user->games = $games->count();
         foreach ($games as $game){
             #winning serve
+            if($game->player_serve == $user->id){
+                $user->serves++;
+            }
             if($game->player1_score + $game->player2_score > 40){
                 $winningserver = floor(($game->player1_score + $game->player2_score -40) / 2) %2;
             }else{
@@ -93,7 +96,6 @@ class Game extends Model
         # % of starting serves
         $user->starting_serve_rate = round(($user->serves / $user->games)*100, 2);
         $user->winning_serve_rate = round(($user->win_on_recieve / $user->games)*100, 2);
-        
         return $user;
         # weakest opponent
         # strongest opponent

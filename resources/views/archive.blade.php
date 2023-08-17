@@ -23,11 +23,11 @@
         <form action="/games" method="POST">
             @csrf
             <td class="py-2 px-4">{{ $game['id']}}</td>
-            <td class="py-2 px-4">{{ strtoupper($game['player1_id'])}}</td>
+            <td class="py-2 px-4">{{ ucwords($game['player1_id'])}}</td>
             <td class="py-2 px-4">{{ $game['player1_score']}}</td>
-            <td class="py-2 px-4">{{ strtoupper($game['winner'])}}</td>
+            <td class="py-2 px-4">{{ ucwords($game['winner'])}}</td>
             <td class="py-2 px-4">{{ $game['player2_score']}}</td>
-            <td class="py-2 px-4">{{ strtoupper($game['player2_id'])}}</td>
+            <td class="py-2 px-4">{{ ucwords($game['player2_id'])}}</td>
             <td class="py-2 px-4">{{ $game['created_at']}}</td>
             <td class="py-2 px-4">
                 <input type="hidden" name="game_id" value="<?php echo $game['id'];?>">     

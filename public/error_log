@@ -4,3 +4,4 @@
 [16-Aug-2023 00:32:58 UTC] PHP Fatal error:  Cannot use isset() on the result of an expression (you can use "null !== expression" instead) in /home/guessben/tabletennis/storage/framework/views/e0531082f32ae29c654be87d5ddb1934.php on line 8
 [16-Aug-2023 00:33:09 UTC] PHP Fatal error:  Cannot use isset() on the result of an expression (you can use "null !== expression" instead) in /home/guessben/tabletennis/storage/framework/views/e0531082f32ae29c654be87d5ddb1934.php on line 8
 [16-Aug-2023 01:41:40 UTC] PHP Fatal error:  Can't use function return value in write context in /home/guessben/tabletennis/app/Models/Game.php on line 37
+[17-Aug-2023 11:48:47 UTC] PHP Fatal error:  'break' not in the 'loop' or 'switch' context in /home/guessben/tabletennis/storage/framework/views/e0531082f32ae29c654be87d5ddb1934.php on line 74
