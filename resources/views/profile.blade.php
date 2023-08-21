@@ -9,8 +9,8 @@ body {
 
 .flip-card {
   background-color: transparent;
-  width: 300px;
-  height: 350px;
+  width: 250px;
+  height: 300px;
   perspective: 1000px;
 }
 
@@ -121,12 +121,6 @@ body {
       </div>
       <div class="mb-2">
         <span class="text-gray-200">Wins receiving serve:</span> {{$profile->win_on_recieve}}
-      </div>
-      <div class="mb-2">
-        <span class="text-gray-200">Rate for starting serve </span> {{$profile->starting_serve_rate}}%
-      </div>
-      <div class="mb-2">
-        <span class="text-gray-200">Rate for winning serve </span> {{$profile->winning_serve_rate}}%
       </div>
     </div>
   </div>
