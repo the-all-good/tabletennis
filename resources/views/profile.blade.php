@@ -10,7 +10,7 @@ body {
 .flip-card {
   background-color: transparent;
   width: 300px;
-  height: 300px;
+  height: 350px;
   perspective: 1000px;
 }
 
@@ -77,7 +77,7 @@ body {
 <div class="flex justify-center items-center p-10 ">
 <div class="flip-card" id="player_card">
   <div id="player_card_inner" class="flip-card-inner">
-  <div class="bg-gradient-to-r from-blue-400 to-purple-400 rounded-md flex flex-col justify-center items-center border-solid border-1 h-80 w-64 flip-card-front" id="player_card_basic">
+  <div class="bg-gradient-to-r from-blue-400 to-purple-400 rounded-md flex flex-col justify-center items-center border-solid border-1 h-96 w-64 flip-card-front" id="player_card_basic">
     <div class="text-white text-2xl font-bold mb-4 mt-2">{{ucwords($profile->name)}}</div>
       <div class="flex items-center mb-2">
         <div class="w-8 h-8 bg-gray-300 mr-2 rounded-full"></div>
@@ -94,14 +94,25 @@ body {
         <span class="text-gray-200">Points:</span> {{$profile->points}}
       </div>
       <div class="mb-2">
-        <span class="text-gray-200">Winrate</span> {{$profile->winrate}}
+        <span class="text-gray-200">Winrate</span> {{$profile->winrate}}%
       </div>
-      <!-- Add more stat sections as needed -->
     </div>
   </div>
-  <div class="bg-gradient-to-r from-blue-400 to-purple-400 rounded-md flex flex-col justify-center items-center border-solid border-1 h-80 w-64 flip-card-back" id="player_card_advanced">
+  <div class="bg-gradient-to-r from-blue-400 to-purple-400 rounded-md flex flex-col justify-center items-center border-solid border-1 h-96 w-64 flip-card-back" id="player_card_advanced">
   <div class="text-white text-2xl font-bold mb-4 mt-2">{{ucwords($profile->name)}}</div>
     <div class="flex-grow">
+      <div class="mb-2">
+        <span class="text-gray-200">Points lost</span> {{$profile->lostpoints}}
+      </div>
+      <div class="mb-2">
+        <span class="text-gray-200">Point rate</span> {{$profile->pointrate}}%
+      </div>
+      <div class="mb-2">
+        <span class="text-gray-200">Blowout games</span> {{$profile->blowout}}
+      </div>
+      <div class="mb-2">
+        <span class="text-gray-200">Close games</span> {{$profile->closegame}}
+      </div>
       <div class="mb-2">
         <span class="text-gray-200">Starting serves:</span> {{$profile->serves}}
       </div>
@@ -112,18 +123,11 @@ body {
         <span class="text-gray-200">Wins receiving serve:</span> {{$profile->win_on_recieve}}
       </div>
       <div class="mb-2">
-        <span class="text-gray-200">Points lost</span> {{$profile->lostpoints}}
+        <span class="text-gray-200">Rate for starting serve </span> {{$profile->starting_serve_rate}}%
       </div>
       <div class="mb-2">
-        <span class="text-gray-200">Point %</span> {{$profile->pointrate}}
+        <span class="text-gray-200">Rate for winning serve </span> {{$profile->winning_serve_rate}}%
       </div>
-      <div class="mb-2">
-        <span class="text-gray-200">Rate for starting serve %</span> {{$profile->starting_serve_rate}}
-      </div>
-      <div class="mb-2">
-        <span class="text-gray-200">Rate for winning serve %</span> {{$profile->winning_serve_rate}}
-      </div>
-      <!-- Add more stat sections as needed -->
     </div>
   </div>
   </div>

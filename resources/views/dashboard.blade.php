@@ -9,7 +9,7 @@
           <th class="py-2 px-4 text-center">Name</th>
           <th class="py-2 px-4 text-center">Wins</th>
           <th class="py-2 px-4 text-center">Points</th>
-          <th class="py-2 px-4 text-center">Games Played</th>
+          <th class="py-2 text-center">Games Played</th>
           <th class="py-2 px-4 text-center">Win Rate</th>
         </tr>
       </thead>
@@ -23,15 +23,18 @@
           <tr class="bg-gray-200">
           <?php $counter++;?>
         @endif
-          <td class="py-2 px-4 text-center divide-x-2">{{ ucwords($player['name'])}}</td>
+          <td class="py-2 px-4 text-center divide-x-2">
+              <a href="/profile/{{$player['name']}}"
+                class="hover:text-blue-700 hover:underline hover:bg-blue-100 rounded-lg px-3 py-2 inline-block transition duration-300 ease-in-out">
+                  {{ ucwords($player['name']) }}
+              </a>
+          </td>
           <td class="py-2 px-4 text-center divide-x-2">{{ $player['wins']}}</td>
           <td class="py-2 px-4 text-center divide-x-2">{{ $player['points']}}</td>
-          <td class="py-2 px-4 text-center divide-x-2">{{ $player['games']}}</td>
+          <td class="py-2 text-center divide-x-2">{{ $player['games']}}</td>
           <td class="py-2 px-4 text-center divide-x-2">{{ $player['winrate']}}</td>
         </tr>
         @endforeach
-        <!-- Add more rows as needed -->
-
       </tbody>
     </table>
     <div class="container mx-auto flex justify-end center items-end py-3">

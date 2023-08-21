@@ -54,7 +54,7 @@ class GameController extends Controller
         }else{
             $game->winner = $player2[0]->id;
         }
-        if($player1[0]->name == $validate['player_serve']){
+        if($player1[0]->name === strtolower($validate['player_serve'])){
             $game->player_serve = $player1[0]->id;
         }else{
             $game->player_serve = $player2[0]->id;

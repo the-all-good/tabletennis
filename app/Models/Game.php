@@ -5,6 +5,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\player;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Carbon\Carbon;
+use Carbon\CarbonImmutable;
 
 use function PHPUnit\Framework\isEmpty;
 
@@ -30,7 +32,6 @@ class Game extends Model
     public static function profileStats($profile){
         $profile = strtolower($profile);
         $user_exists = Player::first()->where('name', $profile)->get();
-        //dd($user_exists->contains('name', $profile));
         if($user_exists->contains('name', $profile) == false){
             return redirect('/profile')->with('status', 'User does not exist!');
         }
@@ -38,7 +39,12 @@ class Game extends Model
         $games = Game::where('player1_id', $user->id)
                      ->orWhere('player2_id', $user->id)
                      ->get();
-
+        $user->serves = 0;
+        $user->win_on_serve = 0;
+        $user->win_on_recieve = 0;
+        $user->wins = 0;
+        $user->closegame = 0;
+        $user->blowout = 0;
         $user->games = $games->count();
         foreach ($games as $game){
             #winning serve
@@ -81,7 +87,7 @@ class Game extends Model
                 $user->closegame += 1;
             }
             # number of blowouts
-            if(abs($game->player1_score - $game->player2_score) > 12 && $user->id == $game->winner){
+            if(abs($game->player1_score - $game->player2_score) >= 10 && $user->id == $game->winner){
                 $user->blowout += 1;
             }
             # total starting serves
@@ -99,6 +105,38 @@ class Game extends Model
         return $user;
         # weakest opponent
         # strongest opponent
+    }
+    public static function dateData($date, $page){
+        if(!in_array(strtolower($date), ['weekly', 'monthly'])){
+            $data = array(
+                'status' => 'Please select a valid timeframe!'
+            );
+            return view('/games')->with($data);
+        }
+        $time = CarbonImmutable::now()->locale('Australia');
+        if($date === 'weekly'){
+            $startOfPeriod = $time->subWeeks($page)->startOfWeek()->format('Y-m-d');
+            $endOfPeriod = $time->subWeeks($page)->endOfWeek()->format('Y-m-d');
+        }else{
+            $startOfPeriod = $time->subMonths($page)->startOfMonth()->format('Y-m-d');
+            $endOfPeriod = $time->subMonths($page)->endOfMonth()->format('Y-m-d');
+        }
+        $weeklyGames = Game::where('created_at', '>=', $startOfPeriod)
+                            ->where('created_at', '<=', $endOfPeriod)
+                            ->get();
+        foreach($weeklyGames as $game){
+            $player1_name = Player::where('id', $game->player1_id)->get('name');
+            $game->player1_id = $player1_name[0]->name;
+            $player2_name = Player::where('id', $game->player2_id)->get('name');
+            $game->player2_id = $player2_name[0]->name;
+            if($game->player1_score > $game->player2_score){
+                $game->winner = $player1_name[0]->name;
+            }else{
+                $game->winner = $player2_name[0]->name;
+            }
+        }
+        $weeklyGames = collect($weeklyGames)->sortBy('game_id')->reverse()->toArray();
+        return $weeklyGames;
     }
 }
     

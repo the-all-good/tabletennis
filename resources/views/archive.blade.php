@@ -17,7 +17,6 @@
         </tr>
       </thead>
       <tbody class="bg-white">
-        <?php //dd($games)?>
         @foreach ($games as $game)
         <tr>
         <form action="/games" method="POST">
