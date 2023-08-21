@@ -113,6 +113,7 @@ class Game extends Model
             );
             return view('/games')->with($data);
         }
+        $page = abs($page);
         $time = CarbonImmutable::now()->locale('Australia');
         if($date === 'weekly'){
             $startOfPeriod = $time->subWeeks($page)->startOfWeek()->format('Y-m-d');

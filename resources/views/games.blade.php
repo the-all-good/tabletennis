@@ -121,7 +121,11 @@
               $link = "{$date}/{$page}";
             }
           ?>
-          <a href="{{$link}}" class="px-4 py-2 text-blue-500 hover:text-blue-700">{{$page}}</a>
+          @if(isset($uri[5]) && $page == $uri[5])
+            <a href="{{$link}}" class="px-3 py-2 bg-blue-500 text-black rounded-md hover:bg-blue-700">{{$page}}</a>
+          @else
+            <a href="{{$link}}" class="px-3 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-700">{{$page}}</a>
+          @endif
         @endfor
       </nav>
     </div>
