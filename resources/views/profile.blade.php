@@ -96,6 +96,9 @@ body {
       <div class="mb-2">
         <span class="text-gray-200">Winrate</span> {{$profile->winrate}}%
       </div>
+      <div class="mb-2">
+        <span class="text-gray-200">Average Points</span> {{$profile->av_points}}
+      </div>
     </div>
   </div>
   <div class="bg-gradient-to-r from-blue-400 to-purple-400 rounded-md flex flex-col justify-center items-center border-solid border-1 h-96 w-64 flip-card-back" id="player_card_advanced">

@@ -97,6 +97,8 @@ class Game extends Model
         }
         # win %
         $user->winrate = round(($user->wins / $user->games)*100, 2);
+        # Average Points
+        $user->av_points = round($user->points / $user->games, 2);
         #point %
         $user->pointrate = round(($user->points / ($user->lostpoints + $user->points))*100, 2);
         # % of starting serves
