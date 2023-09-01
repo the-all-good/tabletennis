@@ -52,6 +52,3 @@ Route::get('/profile/{profile}', function($profile){
         'opponentData' => player::vsOpponent($profile)
     ]);
 });
-Route::get('/test/{profile}', function($profile){
-    return player::vsOpponent($profile);
-});
