@@ -141,5 +141,31 @@ class Game extends Model
         $weeklyGames = collect($weeklyGames)->sortBy('game_id')->reverse()->toArray();
         return $weeklyGames;
     }
+    public static function vsOpponent(string $profile, string $opponent){
+        $player = player::where('name', $profile)->get()->first();
+        $opponent = player::where('name', $opponent)->get()->first();
+        $allGames = Game::where([
+                            ['player1_id', $player['id']],
+                            ['player2_id', $opponent['id']]
+                        ])->orWhere([
+                            ['player2_id', $player['id']],
+                            ['player1_id', $opponent['id']]
+                            ])->get();
+        foreach($allGames as $games){
+            if($player['id'] === $games['player1_id']){
+                $games['player1_id'] = $player['name'];
+                $games['player2_id'] = $opponent['name'];
+            }else{
+                $games['player2_id'] = $player['name'];
+                $games['player1_id'] = $opponent['name'];
+            }
+            if($player['id'] === $games['winner']){
+                $games['winner'] = $player['name'];
+            }else{
+                $games['winner'] = $opponent['name'];
+            }
+        }   
+        $allGames = collect($allGames)->sortBy('game_id')->reverse()->toArray();
+        return $allGames;
+    }
 }
-    

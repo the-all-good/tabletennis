@@ -37,6 +37,9 @@ Route::get('/games', function(){
 Route::get('/games/{date}/{page?}', function($date, $page = 0){
     return view('/games', ['games' => Game::dateData($date, $page)]);
 });
+Route::get('/vs/{profile}/{opponent}', function($profile, $opponent){
+    return view('/vs', ['games' => Game::vsOpponent($profile, $opponent)]);
+});
 Route::get('/archive', function(){
     return view('/archive', ['games' => archive::playerStats()]);
 });

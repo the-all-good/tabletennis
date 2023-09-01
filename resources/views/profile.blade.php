@@ -64,7 +64,7 @@ body {
   <ul class="left-0 mt-2 bg-white border border-gray-300 rounded-md shadow-lg hidden" id="dropdown-list">
     <!-- List items -->
     @foreach(player::orderBy('name')->get() as $player)
-    <a href="/profile/<?php echo $player['name'];?>">
+    <a href="/profile/{{$player['name']}}">
       <li id="dropdown-list" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer">
           {{ucwords($player['name'])}}
       </li>
@@ -139,7 +139,7 @@ body {
     @foreach($opponentData as $opponent)
         <div class="bg-white rounded-lg shadow overflow-hidden">
             <div class="px-6 py-4">
-                <h2 class="text-xl font-semibold mb-2">{{ucwords($opponent['name'])}}</h2>
+                <h2 class="text-xl font-semibold mb-2"><a href="/vs/{{$profile['name']}}/{{$opponent['name']}}">{{ucwords($opponent['name'])}}</a></h2>
                 <p class="text-gray-700 mb-2">Games: {{$opponent['games']}}</p>
                 <p class="text-gray-700 mb-2">Current Winstreak: {{$opponent['outlierCount']}}</p>
                 <p class="text-gray-700 mb-2">Last Winstreak: {{$opponent['lastupset']}}</p>
