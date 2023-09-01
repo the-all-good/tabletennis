@@ -10,7 +10,7 @@ use App\Models\player;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Session;
-
+use Symfony\Component\HttpKernel\Profiler\Profile;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,5 +47,11 @@ Route::get('/profile', function(){
     return view('/profile');
 });
 Route::get('/profile/{profile}', function($profile){
-    return view('/profile', ['profile' => Game::profileStats($profile)]);
+    return view('/profile', [
+        'profile' => Game::profileStats($profile),
+        'opponentData' => player::vsOpponent($profile)
+    ]);
+});
+Route::get('/test/{profile}', function($profile){
+    return player::vsOpponent($profile);
 });

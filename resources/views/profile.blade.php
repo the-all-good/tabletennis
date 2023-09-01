@@ -72,8 +72,7 @@ body {
     @endforeach
   </ul>
 </div>
-@if(!isset($profile))
-@else
+@if(isset($profile))
 <div class="flex justify-center items-center p-10 ">
 <div class="flip-card" id="player_card">
   <div id="player_card_inner" class="flip-card-inner">
@@ -131,6 +130,42 @@ body {
 </div>
 </div>
 
+
+<div class="container mx-auto p-4">
+  <h1 class="text-3xl font-extrabold mb-4 text-center bg-gradient-to-r from-blue-400 via-indigo-500 to-purple-400 text-transparent bg-clip-text">Opponents</h1>
+
+    <!-- Player Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+    @foreach($opponentData as $opponent)
+        <div class="bg-white rounded-lg shadow overflow-hidden">
+            <div class="px-6 py-4">
+                <h2 class="text-xl font-semibold mb-2">{{ucwords($opponent['name'])}}</h2>
+                <p class="text-gray-700 mb-2">Games: {{$opponent['games']}}</p>
+                <p class="text-gray-700 mb-2">Current Winstreak: {{$opponent['outlierCount']}}</p>
+                <p class="text-gray-700 mb-2">Last Winstreak: {{$opponent['lastupset']}}</p>
+                <div class="grid grid-cols-2 gap-2">
+                    <div class="text-gray-600">Wins:</div>
+                    <div class="text-right font-semibold">{{$opponent['wins']}}</div>
+                    <div class="text-gray-600">Losses:</div>
+                    <div class="text-right font-semibold">{{$opponent['losses']}}</div>
+                    <div class="text-gray-600">Points:</div>
+                    <div class="text-right font-semibold">{{$opponent['points']}}</div>
+                    <div class="text-gray-600">Points Lost:</div>
+                    <div class="text-right font-semibold">{{$opponent['lostPoints']}}</div>
+                    <div class="text-gray-600">Average Points:</div>
+                    <div class="text-right font-semibold">{{$opponent['avgPoints']}}</div>
+                    <div class="text-gray-600">Winrate:</div>
+                    <div class="text-right font-semibold">{{$opponent['winrate']}}</div>
+                    <div class="text-gray-600">Scoring Liklihood:</div>
+                    <div class="text-right font-semibold">{{$opponent['pointRate']}}</div>
+                    <div class="text-gray-600">Streaks Broken:</div>
+                    <div class="text-right font-semibold">{{$opponent['upset']}}</div>
+                </div>
+            </div>
+        </div>
+        @endforeach
+    </div>
+  </div>
 @endif
   <!-- JavaScript to handle dropdown behavior -->
   <script>

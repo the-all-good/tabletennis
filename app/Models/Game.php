@@ -29,7 +29,7 @@ class Game extends Model
         $games = collect($games)->sortBy('game_id')->reverse()->toArray();
         return $games;
     }
-    public static function profileStats($profile){
+    public static function profileStats(string $profile){
         $profile = strtolower($profile);
         $user_exists = Player::first()->where('name', $profile)->get();
         if($user_exists->contains('name', $profile) == false){
@@ -108,7 +108,7 @@ class Game extends Model
         # weakest opponent
         # strongest opponent
     }
-    public static function dateData($date, $page){
+    public static function dateData(string $date, int $page){
         if(!in_array(strtolower($date), ['weekly', 'monthly'])){
             $data = array(
                 'status' => 'Please select a valid timeframe!'

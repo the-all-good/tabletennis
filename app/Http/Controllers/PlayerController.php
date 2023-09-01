@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\player;
 use Illuminate\Http\Request;
+use App\Models\Game;
 
 class PlayerController extends Controller
 {
@@ -26,10 +27,7 @@ class PlayerController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-    {
-        //
-    }
+
 
     /**
      * Display the specified resource.
