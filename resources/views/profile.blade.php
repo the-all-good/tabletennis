@@ -54,11 +54,7 @@ body {
 @endif
 <div class="relative">
   <div class="bg-white p-4 rounded-lg shadow-md cursor-pointer" id="dropdown-trigger">
-    @if(!isset($profile))
-    Select Player
-    @else
-    {{ucwords($profile->name)}}
-    @endif
+    {{(!isset($profile)) ? "Select Player" :  ucwords($profile->name)}}
   </div>
   <!-- Dropdown list, initially hidden -->
   <ul class="left-0 mt-2 bg-white border border-gray-300 rounded-md shadow-lg hidden" id="dropdown-list">
@@ -93,10 +89,10 @@ body {
         <span class="text-gray-200">Points:</span> {{$profile->points}}
       </div>
       <div class="mb-2">
-        <span class="text-gray-200">Winrate</span> {{$profile->winrate}}%
+        <span class="text-gray-200">Winrate</span> {{round($profile->winrate,2)}}%
       </div>
       <div class="mb-2">
-        <span class="text-gray-200">Average Points</span> {{$profile->av_points}}
+        <span class="text-gray-200">Average Points</span> {{round($profile->av_points, 2)}}
       </div>
     </div>
   </div>
@@ -144,20 +140,26 @@ body {
                 <p class="text-gray-700 mb-2">Current Winstreak: {{$opponent['outlierCount']}}</p>
                 <p class="text-gray-700 mb-2">Last Winstreak: {{$opponent['lastupset']}}</p>
                 <div class="grid grid-cols-2 gap-2">
-                    <div class="text-gray-600">Wins:</div>
+                    <div class="text-gray-600">Current form:</div>
+                    <div class="text-right font-semibold">
+                    @for($i = min(4, count($opponent['matches']) -1); $i >= 0; $i--)
+                      {{($opponent['matches'][$i]['winner'] === $profile->id) ? "✅" : "❌"}}
+                    @endfor
+                    </div>
+                    <div class="text-gray-600">Wins for {{ucwords($profile->name)}}:</div>
                     <div class="text-right font-semibold">{{$opponent['wins']}}</div>
                     <div class="text-gray-600">Losses:</div>
                     <div class="text-right font-semibold">{{$opponent['losses']}}</div>
-                    <div class="text-gray-600">Points:</div>
+                    <div class="text-gray-600">Points for {{ucwords($profile->name)}}:</div>
                     <div class="text-right font-semibold">{{$opponent['points']}}</div>
                     <div class="text-gray-600">Points Lost:</div>
                     <div class="text-right font-semibold">{{$opponent['lostPoints']}}</div>
                     <div class="text-gray-600">Average Points:</div>
-                    <div class="text-right font-semibold">{{$opponent['avgPoints']}}</div>
+                    <div class="text-right font-semibold">{{round($opponent['avgPoints'],2)}}</div>
                     <div class="text-gray-600">Winrate:</div>
-                    <div class="text-right font-semibold">{{$opponent['winrate']}}</div>
+                    <div class="text-right font-semibold">{{round($opponent['winrate'],2)}}%</div>
                     <div class="text-gray-600">Scoring Liklihood:</div>
-                    <div class="text-right font-semibold">{{$opponent['pointRate']}}</div>
+                    <div class="text-right font-semibold">{{$opponent['pointRate']}}%</div>
                     <div class="text-gray-600">Streaks Broken:</div>
                     <div class="text-right font-semibold">{{$opponent['upset']}}</div>
                 </div>

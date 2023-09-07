@@ -35,37 +35,21 @@
           <form action="/archive" method="POST">
               @csrf
               <td class="py-2 px-4">{{ $game['id']}}</td>
-              @if( $game['player1_id'] == $game['winner'])
               <td class="">
                 <a href="/profile/{{$game['player1_id']}}"
                   class="hover:text-blue-700 hover:underline hover:bg-blue-100 rounded-lg px-3 py-2 inline-block transition duration-300 ease-in-out">
-                  👑{{ ucwords($game['player1_id']) }}
+                  {{($game['player1_id'] == $game['winner']) ? "👑" : ""}}
+                    {{ucwords($game['player1_id']) }}
                 </a>
               </td>
-              @else
-              <td class="">
-                <a href="/profile/{{$game['player1_id']}}"
-                  class="hover:text-blue-700 hover:underline hover:bg-blue-100 rounded-lg px-3 py-2 inline-block transition duration-300 ease-in-out">
-                  {{ ucwords($game['player1_id']) }}
-                </a>
-              </td>
-              @endif
               <td class="py-2 px-4">{{ $game['player1_score']}}</td>
-              @if( $game['player2_id'] == $game['winner'])
               <td class="">
                 <a href="/profile/{{$game['player2_id']}}"
                   class="hover:text-blue-700 hover:underline hover:bg-blue-100 rounded-lg px-3 py-2 inline-block transition duration-300 ease-in-out">
-                  👑{{ ucwords($game['player2_id']) }}
-                </a>
-              </td>
-              @else
-              <td class="">
-                <a href="/profile/{{$game['player2_id']}}"
-                  class="hover:text-blue-700 hover:underline hover:bg-blue-100 rounded-lg px-3 py-2 inline-block transition duration-300 ease-in-out">
+                  {{($game['player2_id'] == $game['winner']) ? "👑" : ""}}
                   {{ ucwords($game['player2_id']) }}
                 </a>
               </td>
-              @endif
               <td class="py-2 px-4">{{ $game['player2_score']}}</td>
               <td class="">
                 <a href="/profile/{{$game['winner']}}"

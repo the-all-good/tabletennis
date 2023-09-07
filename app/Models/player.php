@@ -22,11 +22,7 @@ class player extends Model
             $points2 = Game::where('player2_id', $player->id)
                         ->sum('player2_score');
             $points = $points1 + $points2;
-            if($games > 0){
-            $winrate = round(($wins / $games) * 100, 2);
-            }else{
-                $winrate = 0;
-            }
+            $winrate = ($games > 0) ? round(($wins / $games) * 100, 2) : $winrate = 0;
             $playerStats[] = [
                 'name' => $player->name,
                 'wins' => $wins,
@@ -50,6 +46,7 @@ class player extends Model
                 $opponents[$games['player1_id']]['games'][] = $games;
             }
         }
+
         foreach($opponents as $id => $opponentData){
             //  $opponent = collection player[name, id] and can add any details needed for return
             //  $opponentData = collection of all games vs opponent to get stats from
@@ -61,6 +58,7 @@ class player extends Model
             $opponent->outlierCount = 0;
             $opponent->lastupset = 0;
             $opponent->upset = 0;
+            $opponent->matches = array_reverse($opponents[$opponent->id]['games']);
             $opponent->games = count($opponentData['games']);
             foreach($opponentData['games'] as $game){
                 if($player['id'] === $game['winner']){

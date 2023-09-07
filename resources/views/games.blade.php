@@ -1,5 +1,6 @@
 <?php
     require(resource_path('views').'/header.blade.php');
+    $booger_games = [55];
 ?>
   <div class="flex justify-center mt-8 p-4">
     <div class="flex items-center space-x-4">
@@ -50,44 +51,28 @@
           <form action="/archive" method="POST">
               @csrf
               <td class="py-2 px-4">{{ $game['id']}}</td>
-              @if( $game['player1_id'] == $game['winner'])
               <td class="">
                 <a href="/profile/{{$game['player1_id']}}"
                   class="hover:text-blue-700 hover:underline hover:bg-blue-100 rounded-lg px-3 py-2 inline-block transition duration-300 ease-in-out">
-                  👑{{ ucwords($game['player1_id']) }}
+                  {{($game['player1_id'] == $game['winner']) ? "👑" : ""}}
+                    {{ucwords($game['player1_id']) }}
                 </a>
               </td>
-              @else
-              <td class="">
-                <a href="/profile/{{$game['player1_id']}}"
-                  class="hover:text-blue-700 hover:underline hover:bg-blue-100 rounded-lg px-3 py-2 inline-block transition duration-300 ease-in-out">
-                  {{ ucwords($game['player1_id']) }}
-                </a>
-              </td>
-              @endif
               <td class="py-2 px-4">{{ $game['player1_score']}}</td>
-              @if( $game['player2_id'] == $game['winner'])
               <td class="">
                 <a href="/profile/{{$game['player2_id']}}"
                   class="hover:text-blue-700 hover:underline hover:bg-blue-100 rounded-lg px-3 py-2 inline-block transition duration-300 ease-in-out">
-                  👑{{ ucwords($game['player2_id']) }}
-                </a>
-              </td>
-              @else
-              <td class="">
-                <a href="/profile/{{$game['player2_id']}}"
-                  class="hover:text-blue-700 hover:underline hover:bg-blue-100 rounded-lg px-3 py-2 inline-block transition duration-300 ease-in-out">
+                  {{($game['player2_id'] == $game['winner']) ? "👑" : ""}}
                   {{ ucwords($game['player2_id']) }}
                 </a>
               </td>
-              @endif
               <td class="py-2 px-4">{{ $game['player2_score']}}</td>
               <td class="">
                 <a href="/profile/{{$game['winner']}}"
                   class="hover:text-blue-700 hover:underline hover:bg-blue-100 rounded-lg px-3 py-2 inline-block transition duration-300 ease-in-out">
-                  {{ ucwords($game['winner']) }}
+                  {{in_array(($game['id']), $booger_games) ? "🤢 Booger" : ucwords($game['winner']) }}
                 </a>
-              </td>            
+              </td>
               <td class="py-2 px-4">{{ $game['created_at']}}</td>
               <td class="py-2 px-4">
                   <input type="hidden" name="game_id" value="<?php echo $game['id'];?>">     
@@ -103,11 +88,7 @@
   if(isset($uri[4])){
     $date = $uri[4];
   }
-  if(!isset($uri[5]) || $uri[5] <= 1){
-    $page = -1;
-  }else{
-    $page = $uri[5] -3;
-  }
+  $page = (!isset($uri[5]) || $uri[5] <= 1) ? -1 : $uri[5] -3;
 ?>
 @if(isset($uri[4]))
     <div class="flex items-center justify-center mt-8">
@@ -115,17 +96,9 @@
         @for($i = 0; $i <= 4; $i++)
           <?php 
             $page += 1;
-            if(isset($uri[5])){
-              $link = $page;
-            }else{
-              $link = "{$date}/{$page}";
-            }
+            $link = (isset($uri[5])) ? $page : "{$date}/{$page}";
           ?>
-          @if(isset($uri[5]) && $page == $uri[5])
-            <a href="{{$link}}" class="px-3 py-2 bg-blue-500 text-black rounded-md hover:bg-blue-700">{{$page}}</a>
-          @else
-            <a href="{{$link}}" class="px-3 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-700">{{$page}}</a>
-          @endif
+            <a href="{{$link}}" class="px-3 py-2 bg-blue-500 text-{{ (isset($uri[5]) && $page == $uri[5]) ? 'black' : 'white' }} rounded-md hover:bg-blue-700">{{$page}}</a>
         @endfor
       </nav>
     </div>

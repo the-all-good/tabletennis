@@ -49,16 +49,8 @@ class GameController extends Controller
         $game->player2_id = $player2[0]->id;
         $game->player1_score = $validate['score1'];
         $game->player2_score = $validate['score2'];
-        if($validate['score1'] > $validate['score2']){
-            $game->winner = $player1[0]->id;
-        }else{
-            $game->winner = $player2[0]->id;
-        }
-        if($player1[0]->name === strtolower($validate['player_serve'])){
-            $game->player_serve = $player1[0]->id;
-        }else{
-            $game->player_serve = $player2[0]->id;
-        }
+        ($validate['score1'] > $validate['score2']) ? $game->winner = $player1[0]->id : $game->winner = $player2[0]->id;
+        ($player1[0]->name === strtolower($validate['player_serve'])) ? $game->player_serve = $player1[0]->id : $game->player_serve = $player2[0]->id;
         $game->save();
         return redirect('/');
     }

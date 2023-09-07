@@ -20,11 +20,7 @@ class Game extends Model
             $game->player1_id = $player1_name[0]->name;
             $player2_name = Player::where('id', $game->player2_id)->get('name');
             $game->player2_id = $player2_name[0]->name;
-            if($game->player1_score > $game->player2_score){
-                $game->winner = $player1_name[0]->name;
-            }else{
-                $game->winner = $player2_name[0]->name;
-            }
+            ($game->player1_score > $game->player2_score) ? $game->winner = $player1_name[0]->name : $game->winner = $player2_name[0]->name;
         }
         $games = collect($games)->sortBy('game_id')->reverse()->toArray();
         return $games;
@@ -56,11 +52,7 @@ class Game extends Model
             }else{
                 $winningserver = floor(($game->player1_score + $game->player2_score) / 5) %2;
             }
-            if($game->player1_id == $game->player_serve){
-                $starting_serve = $game->player1_id;
-            }else{
-                $starting_serve = $game->player2_id;
-            }
+            $starting_serve = ($game->player1_id == $game->player_serve) ? $game->player1_id : $game->player2_id;
             if($user->id == $game->winner && $winningserver == 0){
             # wins on serve
                 $user->win_on_serve++;
@@ -132,11 +124,7 @@ class Game extends Model
             $game->player1_id = $player1_name[0]->name;
             $player2_name = Player::where('id', $game->player2_id)->get('name');
             $game->player2_id = $player2_name[0]->name;
-            if($game->player1_score > $game->player2_score){
-                $game->winner = $player1_name[0]->name;
-            }else{
-                $game->winner = $player2_name[0]->name;
-            }
+            $game->winner = ($game->player1_score > $game->player2_score) ? $player1_name[0]->name : $player2_name[0]->name;
         }
         $weeklyGames = collect($weeklyGames)->sortBy('game_id')->reverse()->toArray();
         return $weeklyGames;
@@ -159,11 +147,7 @@ class Game extends Model
                 $games['player2_id'] = $player['name'];
                 $games['player1_id'] = $opponent['name'];
             }
-            if($player['id'] === $games['winner']){
-                $games['winner'] = $player['name'];
-            }else{
-                $games['winner'] = $opponent['name'];
-            }
+            $games['winner'] = ($player['id'] === $games['winner']) ? $player['name'] : $games['winner'] = $opponent['name'];
         }   
         $allGames = collect($allGames)->sortBy('game_id')->reverse()->toArray();
         return $allGames;
