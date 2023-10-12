@@ -55,3 +55,6 @@ Route::get('/profile/{profile}', function($profile){
         'opponentData' => player::vsOpponent($profile)
     ]);
 });
+Route::get('/import/{count}', function($count){
+    return str_repeat("Im not that much of a cunt you evil bitch <br>", $count);
+});
